@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Generator</title>
+    <link rel="stylesheet" type="text/css" href="fgener.css" />
+    <link href='https://fonts.googleapis.com/css?family=Akaya+Kanadaka' rel='stylesheet'>
+</head>
+<body>
+    <h1>
+        Welcome to Food Generator<br>
+        Click on button to generate
+    </h1>
+    <button id="fetchButton">Get Food</button>
+    <div id="foodContainer"></div>
+    <button id="homeButton" onclick="goHome()">Home</button>
+
+    <script>
+        let foodData = [];
+        let currentIndex = 0;
+
+        document.getElementById('fetchButton').addEventListener('click', async () => {
+            if (foodData.length === 0) {
+                const url = 'https://chinese-food-db.p.rapidapi.com/';
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        'X-RapidAPI-Key': '583af90169msh060cf141199e577p14054ejsn00acd7494179',
+                        'X-RapidAPI-Host': 'chinese-food-db.p.rapidapi.com'
+                    }
+                };
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const result = await response.json();
+                    console.log(result); 
+                    foodData = result;
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    return;
+                }
+            }
+
+            displayFood();
+        });
+
+        function displayFood() {
+            const foodContainer = document.getElementById('foodContainer');
+            foodContainer.innerHTML = ''; 
+
+            const food = foodData[currentIndex];
+            currentIndex = (currentIndex + 1) % foodData.length;
+
+            const foodDiv = document.createElement('div');
+            const title = document.createElement('h2');
+            title.textContent = food.title || "No title"; 
+            const image = document.createElement('img');
+            image.src = food.image || ""; 
+            image.alt = food.title || "Food Image";
+
+            foodDiv.appendChild(title);
+            foodDiv.appendChild(image);
+            foodContainer.appendChild(foodDiv);
+        }
+
+        function goHome() {
+            window.location.href = 'index.html'; 
+        }
+    </script>
+</body>
+</html>

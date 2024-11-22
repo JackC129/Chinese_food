@@ -1,0 +1,37 @@
+body{
+    background-image: url("fback.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+#header{
+    color: white;
+    font-family: 'Akaya Kanadaka';
+}
+#header h1{
+    font-size: 100px;
+}
+#header h2{
+    font-size: 30px;
+}
+#header h3{
+    font-size: 25px;
+}
+#header img{
+    width: 600px;
+    height: auto;
+    border-radius: 15px;
+}
+#btn{
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 30px;
+    background-color: #f19877;
+    font-size: 20px;
+    font-family: 'Akaya Kanadaka';
+    color: white;
+}
+#btn:hover{
+    transform: scale(1.1);
+}
